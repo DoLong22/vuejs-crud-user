@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import moment from 'moment';
-/* eslint-disable */
+
 Vue.mixin({
   methods: {
     formatDate(date) {
@@ -12,8 +12,7 @@ Vue.mixin({
     },
     formatPrice(value) {
       const valueABS = Math.abs(value);
-      if (isNaN(valueABS))
-        return value;
+      if (Number.isNaN(valueABS)) return value;
       if (valueABS > -1000 && valueABS < 1000) {
         return value;
       }
@@ -40,7 +39,7 @@ Vue.mixin({
       }, 100);
     },
     getTotalItem(totalItem, limit = 10) {
-      return Math.floor((totalItem -1)/limit) + 1
-    }
+      return Math.floor((totalItem - 1) / limit) + 1;
+    },
   },
 });

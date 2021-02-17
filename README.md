@@ -1,4 +1,4 @@
-# neptune-frontend project
+# training-frontend project
 
 ## Project setup
 
