@@ -1,15 +1,22 @@
 import moment from 'moment';
+import axiosInstance from '../../../plugins/axios';
 
 const login = async (username, password) => {
-    if (username === 'admin' && password === 'tt@1234') {
+    try {
+        const response = await axiosInstance.post('/login', {
+            email: username, password,
+        });
+        const { data } = response.data;
         return {
-            username: 'admin',
-            token: 'token1234567',
-            refreshToken: 'token1234567',
+            username: data?.profile?.email,
+            token: data?.accessToken?.token,
+            refreshToken: data?.refreshToken?.token,
             expiredAt: moment().add(1, 'hours').unix(),
         };
+    } catch (error) {
+        console.log(error);
+        return null;
     }
-    return null;
 };
 
 const logout = async () => {
@@ -17,11 +24,11 @@ const logout = async () => {
 };
 
 const refreshAccessToken = async (username, refreshToken) => ({
-        username,
-        token: 'token1234567',
-        refreshToken,
-        expiredAt: moment().add(1, 'hours').unix(),
-    });
+    username,
+    token: 'token1234567',
+    refreshToken,
+    expiredAt: moment().add(1, 'hours').unix(),
+});
 
 const authService = {
     login,
